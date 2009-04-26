@@ -2,7 +2,8 @@
 #
 
 # ---- Get MAP source root directory
-get_filename_component(MAP_ROOT ${CMAKE_MODULE_PATH} PATH)
+# get_filename_component(MAP_ROOT ${CMAKE_MODULE_PATH} PATH)
+SET(MAP_ROOT ${CMAKE_SOURCE_DIR})
 SET(MAP_CLIBS_PATH ${MAP_ROOT}/src/clibs)
 
 # ---- Get info from ./VERSION file
