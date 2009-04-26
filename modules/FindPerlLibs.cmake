@@ -37,31 +37,38 @@ IF(PERL_EXECUTABLE)
 MESSAGE(STATUS "PLIBPERL=${PLIBPERL}")
   # ---- Find perl.h and set PERL_INCLUDE_PATH
   SET(PERL_POSSIBLE_INCLUDE_PATHS
-	        ${PARCHLIB}
-					/usr/lib/perl5/${PVERSION}/${PARCH}/CORE
-					/usr/lib/perl/${PVERSION}/${PARCH}/CORE
-					/usr/lib/perl5/${PVERSION}/CORE
-					/usr/lib/perl/${PVERSION}/CORE
-					/usr/lib/perl5/5.8/CORE
-					/usr/lib/perl/5.8/CORE
-					/opt/local/lib/perl5/${PVERSION}/${PARCH}/CORE
-					/opt/local/lib/perl/${PVERSION}/${PARCH}/CORE
-					/opt/local/lib/perl5/${PVERSION}/CORE
-					/opt/local/lib/perl/${PVERSION}/CORE
+          ${PARCHLIB}/CORE
+          ${PARCHLIB}
+          /usr/lib/perl5/${PVERSION}/${PARCH}/CORE
+          /usr/lib/perl/${PVERSION}/${PARCH}/CORE
+          /usr/lib/perl5/${PVERSION}/CORE
+          /usr/lib/perl/${PVERSION}/CORE
+          /usr/lib/perl5/5.8/CORE
+          /usr/lib/perl/5.8/CORE
+          /opt/local/lib/perl5/${PVERSION}/${PARCH}/CORE
+          /opt/local/lib/perl/${PVERSION}/${PARCH}/CORE
+          /opt/local/lib/perl5/${PVERSION}/CORE
+          /opt/local/lib/perl/${PVERSION}/CORE
   )
 
-	FIND_PATH(PERL_INCLUDE_PATH perl.h  ${PERL_POSSIBLE_INCLUDE_PATHS})
-	GET_FILENAME_COMPONENT(PERL_LIB_PATH ${PERL_INCLUDE_PATH} PATH)
-					
-	# ---- Find location for installing shared libraries FIXME!
+  IF (EXISTS ${PARCHLIB}/CORE/perl.h)
+    # Force finding perl.h on PARCHLIB first
+    SET(PERL_INCLUDE_PATH ${PARCHLIB}/CORE)
+  ELSE (EXISTS ${PARCHLIB}/CORE/perl.h)
+    FIND_PATH(PERL_INCLUDE_PATH perl.h  ${PERL_POSSIBLE_INCLUDE_PATHS})
+  ENDIF (EXISTS ${PARCHLIB}/CORE/perl.h)
+
+  GET_FILENAME_COMPONENT(PERL_LIB_PATH ${PERL_INCLUDE_PATH} PATH)
+          
+  # ---- Find location for installing shared libraries FIXME!
   SET(PERL_LIB_PATH ${PSITEARCH})  
   SET(PERL_SLIB_PATH ${PSITEARCH})  
 
   FIND_FILE(PERLLIB_LIBRARY ${PLIBPERL} 
-		${PERL_POSSIBLE_INCLUDE_PATHS}
+    ${PERL_POSSIBLE_INCLUDE_PATHS}
     ${NIX_LIB_PATH} 
-	  /lib
-	  /usr/lib
+    /lib
+    /usr/lib
   )
   MESSAGE("PERLLIB_LIBRARY=${PERLLIB_LIBRARY}")
 
@@ -81,5 +88,5 @@ MARK_AS_ADVANCED(
   PERL_EXECUTABLE
   PERL_LIB_PATH
   PERL_SLIB_PATH
-	PERL_LIBRARY
+  PERL_LIBRARY
   )
