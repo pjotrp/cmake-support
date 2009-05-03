@@ -51,9 +51,9 @@ IF(APPLE)
 ENDIF(APPLE)
 
 IF(CYGWIN)
-  IF (USE_LANGUAGE strequal "perl")
+  IF(USE_LANGUAGE STREQUAL "perl")
     TARGET_LINK_LIBRARIES(${M_MODULE} crypt)
-  ENDIF (USE_LANGUAGE strequal "perl")
+  ENDIF(USE_LANGUAGE STREQUAL "perl")
 ENDIF(CYGWIN)
 
 INCLUDE(FindPackageHandleStandardArgs)
