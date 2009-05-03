@@ -41,8 +41,8 @@ IF(BUILD_LIBS)
 ELSE(BUILD_LIBS)
   # This section gets run when CMake is invoked from a node - it needs
   # an explicit path as is has been pre-built and CMake is not aware...
-  MESSAGE("Actively looking for link library")
-  FIND_LIBRARY(MODULE_LIBRARY NAMES ${_LINKLIB} PATHS ${MODULE_SOURCE_PATH} ${MODULE_SOURCE_PATH}/build ${MODULE_SOURCE_PATH}/src)
+  MESSAGE("Actively looking for link library ${_LINKLIB} in ${MODULE_SOURCE_PATH}")
+  FIND_LIBRARY(MODULE_LIBRARY NAMES ${_LINKLIB} PATHS ${MODULE_SOURCE_PATH} ${MODULE_SOURCE_PATH}/build ${MODULE_SOURCE_PATH}/src ${MODULE_SOURCE_PATH}/${USE_INCLUDEPATH})
 ENDIF(BUILD_LIBS)
 message("MODULE_LIBRARY=${MODULE_LIBRARY}")
 INCLUDE_DIRECTORIES(${MODULE_SOURCE_PATH}/include)
