@@ -1,5 +1,25 @@
 = Trouble shooting Cygwin builds =
 
+Cygwin successfully creates a Unix type environment on Windows.
+However, where it concerns dynamically linked libraries it is more a
+Windows environment.
+
+== Setting up a test system ==
+
+I use Microsoft Windows in a VirtualBox - which allows logging in
+through ssh - virtually creating a Unix look & feel. For Cygwin
+packages see BioLib/doc/CYGWIN.txt.
+
+== Understanding DLLs ==
+
+The most useful web pages are provided by Cygwin:
+
+  http://www.cygwin.com/cygwin-ug-net/dll.html
+
+and Red Hat:
+
+  http://www.redhat.com/docs/manuals/enterprise/RHEL-4-Manual/gnu-linker/win32.html
+
 == Missing shared libraries ==
 
 Use the cygcheck tool to see what binaries link to, for example:
@@ -13,8 +33,13 @@ Use the cygcheck tool to see what binaries link to, for example:
        C:\WINDOWS\system32\KERNEL32.dll
        C:\WINDOWS\system32\RPCRT4.dll
  
-points out there is a problem.
+points out there is a problem. Apparently the dll.a got linked for
+biolib, but it fails to find the actual dll. It may be adding the search
+path works, e.g.
 
+cd src/mappings/swig/ruby
+env PATH=$PATH:../../../clibs/example-1.0/ ruby -I example/ ./test/test_example.rb 
+Biolib::Example.my_mod(7,3) renders 1
 
 
 
