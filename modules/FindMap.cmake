@@ -26,8 +26,9 @@ EXEC_PROGRAM(${cat_prog} ARGS ${MAP_ROOT}/PROJECTNAME OUTPUT_VARIABLE MAP_PROJEC
 string(TOLOWER ${MAP_PROJECTNAME} MAP_projectname)
 string(TOUPPER ${MAP_PROJECTNAME} MAP_PROJECTNAME_UPPER)
 
-# ---- Add a predefined build variable
+# ---- Add predefined build variables
 add_definitions(-DMAP_BUILD)
+add_definitions(-D${MAP_PROJECT_NAME_UPPER}_BUILD)
 
 # ---- Set default installation prefix
 
