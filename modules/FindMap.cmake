@@ -28,7 +28,7 @@ string(TOUPPER ${MAP_PROJECTNAME} MAP_PROJECTNAME_UPPER)
 
 # ---- Add predefined build variables
 add_definitions(-DMAP_BUILD)
-add_definitions(-D${MAP_PROJECT_NAME_UPPER}_BUILD)
+add_definitions(-D${MAP_PROJECTNAME_UPPER}_BUILD)
 
 # ---- Set default installation prefix
 
