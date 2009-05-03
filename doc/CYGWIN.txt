@@ -1,0 +1,20 @@
+= Trouble shooting Cygwin builds =
+
+== Missing shared libraries ==
+
+Use the cygcheck tool to see what binaries link to, for example:
+
+  cygcheck.exe ./example.dll 
+   .\example.dll
+   Error: could not find cygbiolib_example-0.0.5pre1.dll
+   C:\cygwin\bin\cygwin1.dll
+     C:\WINDOWS\system32\ADVAPI32.DLL
+       C:\WINDOWS\system32\ntdll.dll
+       C:\WINDOWS\system32\KERNEL32.dll
+       C:\WINDOWS\system32\RPCRT4.dll
+ 
+points out there is a problem.
+
+
+
+
