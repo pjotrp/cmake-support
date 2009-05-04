@@ -17,6 +17,11 @@ def msg action, term=''
 	print (action+': ').ljust(12),term,"\n"
 end
 
+def msgcmd action, cmd=''
+  msg action,cmd
+  Kernel.system(cmd)
+end
+
 msg "Running","cmake-support/scripts/fulltest"
 msg "From",cmake_support_path
 
@@ -32,13 +37,11 @@ p config
 config.each do | item |
   msg 'Test',item[:name]
 	cmd = "scp -P #{item[:port]} #{item[:script]} #{item[:user]}@#{item[:host]}:"
-	msg 'Copy',cmd
-  Kernel.system(cmd)
+	msgcmd 'Copy',cmd
 	cmd = "ssh -p #{item[:port]} #{item[:user]}@#{item[:host]} ./#{File.basename(item[:script])} #{item[:project]} #{item[:git]}"
-	msg 'Run',cmd
-  Kernel.system(cmd)
+	msgcmd 'Run',cmd
 	cmd = "scp -P #{item[:port]} #{item[:user]}@#{item[:host]}:autotest/#{item[:project]}/test.out #{item[:name]}.result"
-	msg 'Fetch',cmd
+	msgcmd 'Fetch',cmd
 	cmd = "scp -P #{item[:port]} #{item[:user]}@#{item[:host]}:autotest/#{item[:project]}/testlog.out #{item[:name]}.log"
-	msg 'Fetch',cmd
+	msgcmd 'Fetch',cmd
 end

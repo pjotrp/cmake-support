@@ -1,6 +1,6 @@
 -
   :project: biolib
-  :name: BioLibOnCygwin
+  :name: BioLibMasterOnCygwin
   :port: 2222
   :host: localhost
   :user: xxx

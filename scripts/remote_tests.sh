@@ -11,15 +11,25 @@ cd autotest
 rm -rf $project
 git clone $git $project
 cd $project
-echo $project $git > test.out
+cat PROJECTNAME VERSION > test.out
+cat /proc/version >> test.out
+cmake --version >> test.out
+swig -version >> test.out
+gcc --version >> test.out
+perl -v 
+git log -1 >> test.out
+echo $project $git >> test.out
+perl -v >> test.out
 ./configure 
 make
 make test >> test.out
 cat Testing/Temporary/LastTest.log >> testlog.out
+ruby -v >> test.out
 ./configure --with-ruby
 make
 make test >> test.out
 cat Testing/Temporary/LastTest.log >> testlog.out
+python -V >> test.out
 ./configure --with-python
 make
 make test >> test.out
