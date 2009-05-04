@@ -16,6 +16,7 @@ SET (M_MODULE ${M_NAME})
 message("Creating Ruby module ${M_MODULE} (${M_VERSION})")
 FIND_PACKAGE(Map REQUIRED)
 FIND_PACKAGE(Ruby REQUIRED)
+INCLUDE( ${CMAKE_MODULE_PATH}/RubyMacros.cmake)
 
 # ---- Setting the default Ruby include path
 INCLUDE_DIRECTORIES(${RUBY_INCLUDE_PATH})
