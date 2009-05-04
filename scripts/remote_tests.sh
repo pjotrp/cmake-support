@@ -8,9 +8,15 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/cygdrive/c/WINDOWS/system32:/c
 set
 mkdir -p autotest
 cd autotest
-rm -rf $project
-git clone $git $project
-cd $project
+git --version
+if [ -e $project/.git/config ]; then
+  cd $project
+  git pull
+else
+  rm -rf $project
+  git clone $git $project
+  cd $project
+fi
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out

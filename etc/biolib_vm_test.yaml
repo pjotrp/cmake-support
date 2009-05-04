@@ -5,4 +5,11 @@
   :host: localhost
   :user: xxx
   :script: scripts/remote_tests.sh
-  :git: git@github.com:pjotrp/biolib.git 
+  :git: "http://github.com/pjotrp/biolib.git"
+-
+  :project: biolib
+  :name: BioLibMasterOnDebian1
+  :port: 22
+  :host: localhost
+  :script: scripts/remote_tests.sh
+  :git: "http://github.com/pjotrp/biolib.git"

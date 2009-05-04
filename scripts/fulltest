@@ -26,22 +26,27 @@ msg "Running","cmake-support/scripts/fulltest"
 msg "From",cmake_support_path
 
 if ARGV.size == 0
-  error "Usage: ./tools/cmake-support/scripts/fulltest configfn\n"
+  error "Usage: ./tools/cmake-support/scripts/fulltest configfn [test]\n"
 end
 
 configfn = ARGV.shift
+testname = ARGV.shift
+
 msg 'Parsing',configfn
 
 config = YAML::load( File.open(configfn) )
 p config
 config.each do | item |
+  next if testname and testname != item[:name]
   msg 'Test',item[:name]
-	cmd = "scp -P #{item[:port]} #{item[:script]} #{item[:user]}@#{item[:host]}:"
+	remote = item[:host]
+	remote = item[:user] + '@' + remote if item[:user]
+	cmd = "scp -P #{item[:port]} #{item[:script]} #{remote}:"
 	msgcmd 'Copy',cmd
-	cmd = "ssh -p #{item[:port]} #{item[:user]}@#{item[:host]} ./#{File.basename(item[:script])} #{item[:project]} #{item[:git]}"
+	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{item[:project]} #{item[:git]}\""
 	msgcmd 'Run',cmd
-	cmd = "scp -P #{item[:port]} #{item[:user]}@#{item[:host]}:autotest/#{item[:project]}/test.out #{item[:name]}.result"
+	cmd = "scp -P #{item[:port]} #{remote}:autotest/#{item[:project]}/test.out #{item[:name]}.result"
 	msgcmd 'Fetch',cmd
-	cmd = "scp -P #{item[:port]} #{item[:user]}@#{item[:host]}:autotest/#{item[:project]}/testlog.out #{item[:name]}.log"
+	cmd = "scp -P #{item[:port]} #{remote}:autotest/#{item[:project]}/testlog.out #{item[:name]}.log"
 	msgcmd 'Fetch',cmd
 end
