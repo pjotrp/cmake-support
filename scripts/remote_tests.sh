@@ -11,12 +11,13 @@ cd autotest
 git --version
 if [ -e $project/.git/config ]; then
   cd $project
-  git pull
 else
   rm -rf $project
   git clone $git $project
   cd $project
 fi
+git checkout -b release_candidate
+git pull origin release_candidate
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
