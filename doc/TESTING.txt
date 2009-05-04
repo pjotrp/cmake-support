@@ -1,0 +1,17 @@
+= TESTING =
+
+The BioLib and ASciLib projects use these cmake modules and come with
+testing scripts. These can be run with:
+
+  cmake .
+  make
+  make test
+
+Before a release a 'release candidate tree' is tested using different
+setups using a virtualized image of a base install of Debian and
+Cygwin.
+
+The ./scripts/fulltest script logs in to different local virtual
+machines using ssh and clones the git repositories afresh. Next it
+runs the tests and gathers the results for display.
+

@@ -1,0 +1,8 @@
+-
+  :project: biolib
+  :name: BioLibOnCygwin
+  :port: 2222
+  :host: localhost
+  :user: xxx
+  :script: scripts/remote_tests.sh
+  :git: git@github.com:pjotrp/biolib.git 
