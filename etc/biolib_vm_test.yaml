@@ -5,6 +5,7 @@
   :host: localhost
   :user: xxx
   :script: scripts/remote_tests.sh
+  :install: true
   :git: "http://github.com/pjotrp/biolib.git"
 -
   :project: biolib

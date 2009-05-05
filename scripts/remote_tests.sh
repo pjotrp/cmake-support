@@ -3,6 +3,19 @@
 echo "HELLO from remote "$*
 project=$1
 git=$2
+test_install=$3
+
+test_me() {
+  make
+  make test >> test.out
+  cat Testing/Temporary/LastTest.log >> testlog.out
+  if [ ! -z $test_install ]; then
+    make install
+    ./scripts/cleanup.sh
+    make test
+    ./scripts/uninstall.sh
+  fi
+}
 
 PATH=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/bin:$PATH
 set
@@ -28,17 +41,11 @@ git log -1 >> test.out
 echo $project $git >> test.out
 perl -v >> test.out
 ./configure 
-make
-make test >> test.out
-cat Testing/Temporary/LastTest.log >> testlog.out
+test_me()
 ruby -v >> test.out
 ./configure --with-ruby
-make
-make test >> test.out
-cat Testing/Temporary/LastTest.log >> testlog.out
+test_me()
 python -V >> test.out
 ./configure --with-python
-make
-make test >> test.out
-cat Testing/Temporary/LastTest.log >> testlog.out
+test_me()
 cat test.out
