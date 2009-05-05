@@ -7,13 +7,16 @@ branch=$3
 test_install=$4
 
 test_me() {
+  ./configure $1
   make
   make test >> test.out
   cat Testing/Temporary/LastTest.log >> testlog.out
   if [ ! -z $test_install ]; then
     make install
     ./scripts/cleanup.sh
+    ./configure $1
     make test
+    cat Testing/Temporary/LastTest.log >> testlog.out
     ./scripts/uninstall.sh
   fi
 }
@@ -41,12 +44,9 @@ perl -v
 git log -1 >> test.out
 echo $project $git >> test.out
 perl -v >> test.out
-./configure 
-test_me()
+test_me
 ruby -v >> test.out
-./configure --with-ruby
-test_me()
+test_me(--with-ruby)
 python -V >> test.out
-./configure --with-python
-test_me()
+test_me(--with-python)
 cat test.out
