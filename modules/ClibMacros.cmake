@@ -5,14 +5,11 @@ message(STATUS "ClibMacros.cmake")
 MACRO(TEST_CLIB)
 ENDMACRO(TEST_CLIB)
 
-MACRO(BUILD_CLIB _directory)
-  IF(NOT _directory)
-    SET(_directory ../build)
-  ENDIF()
+MACRO(BUILD_CLIB)
+  SET(_directory ${MODULE_SOURCE_PATH}/build)
   SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${_directory})
   SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${_directory})
   SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${_directory})
-  SET(_directory undefined)
 ENDMACRO(BUILD_CLIB)
 
 # Installation location for the C libraries
