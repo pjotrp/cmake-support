@@ -43,7 +43,7 @@ config.each do | item |
 	remote = item[:user] + '@' + remote if item[:user]
 	cmd = "scp -P #{item[:port]} #{item[:script]} #{remote}:"
 	msgcmd 'Copy',cmd
-	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{item[:project]} #{item[:git]} #{item[:install]}\""
+	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{item[:project]} #{item[:git]} #{item[:branch]} #{item[:install]}\""
 	msgcmd 'Run',cmd
 	cmd = "scp -P #{item[:port]} #{remote}:autotest/#{item[:project]}/test.out #{item[:name]}.result"
 	msgcmd 'Fetch',cmd

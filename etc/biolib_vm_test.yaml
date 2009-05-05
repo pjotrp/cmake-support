@@ -1,6 +1,7 @@
 -
   :project: biolib
-  :name: BioLibMasterOnCygwin
+  :name: BioLibRcOnCygwin
+  :branch: release_candidate
   :port: 2222
   :host: localhost
   :user: xxx
@@ -9,7 +10,8 @@
   :git: "http://github.com/pjotrp/biolib.git"
 -
   :project: biolib
-  :name: BioLibMasterOnDebian1
+  :name: BioLibRcOnDebian1
+  :branch: release_candidate
   :port: 22
   :host: localhost
   :script: scripts/remote_tests.sh

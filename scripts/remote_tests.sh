@@ -3,7 +3,8 @@
 echo "HELLO from remote "$*
 project=$1
 git=$2
-test_install=$3
+branch=$3
+test_install=$4
 
 test_me() {
   make
@@ -29,8 +30,8 @@ else
   git clone $git $project
   cd $project
 fi
-git checkout -b release_candidate
-git pull origin release_candidate
+git checkout -b $branch
+git pull origin $branch
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
