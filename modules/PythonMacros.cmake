@@ -1,0 +1,37 @@
+
+message(STATUS "PythonMacros.cmake")
+
+MACRO(POST_BUILD_PYTHON_BINDINGS)
+  ADD_CUSTOM_COMMAND(
+    TARGET _${M_MODULE}
+    POST_BUILD
+    COMMAND touch ${MAP_projectname}/__init__.py
+    COMMAND ${CMAKE_COMMAND} -E copy ${M_NAME}.py ${MAP_projectname}/${M_NAME}.py
+    COMMAND python -m compileall ${MAP_projectname}/
+  )
+ENDMACRO(POST_BUILD_PYTHON_BINDINGS)
+
+# Set up a test
+MACRO(TEST_PYTHON_BINDINGS)
+
+  IF(CYGWIN)
+    SET(_SEARCHPATH env PATH=${MODULE_LIBRARY_BINPATH}:$ENV{PATH})
+  ENDIF(CYGWIN)
+
+  ADD_TEST(TestPython${M_NAME} ${_SEARCHPATH} ${Python_EXECUTABLE} ./../test/test_${M_NAME}.py)
+  SET(_SEARCHPATH unknown)
+
+ENDMACRO(TEST_PYTHON_BINDINGS)
+
+# Installation location for the Python module
+MACRO(INSTALL_PYTHON_BINDINGS)
+
+  INSTALL(TARGETS _${M_MODULE}
+    LIBRARY DESTINATION ${PYTHON_LIB_PATH}
+    ARCHIVE DESTINATION ${PYTHON_LIB_PATH}
+    RUNTIME DESTINATION bin 
+  )
+  INSTALL(FILES ${MAP_projectname}/${M_MODULE}.pyc DESTINATION ${PYTHON_LIB_PATH}/${MAP_projectname} )
+  INSTALL(FILES ${MAP_projectname}/__init__.pyc DESTINATION ${PYTHON_LIB_PATH}/${MAP_projectname} )
+
+ENDMACRO(INSTALL_PYTHON_BINDINGS)
