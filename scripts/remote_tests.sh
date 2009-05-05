@@ -10,11 +10,13 @@ test_me() {
   ./configure $1
   make
   make test >> test.out
+  make test
   cat Testing/Temporary/LastTest.log >> testlog.out
   if [ ! -z $test_install ]; then
     make install
     ./scripts/cleanup.sh
     ./configure $1
+    make test >> test.out
     make test
     cat Testing/Temporary/LastTest.log >> testlog.out
     ./scripts/uninstall.sh
