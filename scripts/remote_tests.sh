@@ -43,10 +43,10 @@ gcc --version >> test.out
 perl -v 
 git log -1 >> test.out
 echo $project $git >> test.out
+ruby -v >> test.out
+test_me "--with-ruby"
 perl -v >> test.out
 test_me
-ruby -v >> test.out
-test_me(--with-ruby)
 python -V >> test.out
-test_me(--with-python)
+test_me "--with-python"
 cat test.out
