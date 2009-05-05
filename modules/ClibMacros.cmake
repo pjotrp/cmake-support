@@ -6,10 +6,14 @@ MACRO(TEST_CLIB)
 ENDMACRO(TEST_CLIB)
 
 MACRO(BUILD_CLIB)
-  SET(_directory ${MODULE_SOURCE_PATH}/build)
+  SET(LIBNAME ${MAP_projectname}_${M_NAME}-${MAP_VERSION})
+  message("LIBNAME=" ${LIBNAME})
+  SET (_directory ${MAP_CLIBS_PATH}/${M_NAME}-${M_VERSION}/build)
+  message("BUILDDIR=" ${_directory})
   SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${_directory})
   SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${_directory})
   SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${_directory})
+  SET (_directory undefined)
 ENDMACRO(BUILD_CLIB)
 
 # Installation location for the C libraries
