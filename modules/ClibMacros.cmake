@@ -15,12 +15,10 @@ MACRO(BUILD_CLIB directory)
   SET(_directory undefined)
 ENDMACRO(BUILD_CLIB)
 
-# Installation location for the Ruby module
+# Installation location for the C libraries
 MACRO(INSTALL_CLIB)
-
-  INSTALL(TARGETS ${M_MODULE} 
-    LIBRARY DESTINATION ${RUBY_LIB_PATH}/${MAP_projectname}
-    ARCHIVE DESTINATION ${RUBY_LIB_PATH}/${MAP_projectname}
+  INSTALL(TARGETS ${LIBNAME}
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
     RUNTIME DESTINATION bin )
-
 ENDMACRO(INSTALL_CLIB)
