@@ -5,7 +5,7 @@ message(STATUS "ClibMacros.cmake")
 MACRO(TEST_CLIB)
 ENDMACRO(TEST_CLIB)
 
-MACRO(BUILD_CLIB directory)
+MACRO(BUILD_CLIB _directory)
   IF(NOT _directory)
     SET(_directory ../build)
   ENDIF()
