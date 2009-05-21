@@ -1,0 +1,16 @@
+= OSX =
+
+== Finding R libraries ==
+
+R_EXECUTABLE=/Applications/R.app/Contents/MacOS/R
+R_INCLUDE_PATH=/Library/Frameworks/R.framework/Headers
+R_LIBRARY=/Applications/R.app/Contents/lib/R/lib/libR.so
+RBLAS_LIBRARY=RBLAS_LIBRARY-NOTFOUND
+CMake Error at tools/cmake-support/modules/FindRLibs.cmake:44 (message):
+  /Applications/R.app/Contents/lib/R/lib/libR.so was not found (has R been
+  built as shared library libR.so?)
+
+ls /Library/Frameworks/R.framework/Libraries/
+i386                    libRblas.vecLib.dylib   libreadline.5.2.dylib
+libR.dylib
+

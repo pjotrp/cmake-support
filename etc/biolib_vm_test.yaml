@@ -5,6 +5,7 @@
   :port: 2222
   :host: localhost
   :user: xxx
+  :path: "/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/bin"
   :script: scripts/remote_tests.sh
   :install: true
   :git: "http://github.com/pjotrp/biolib.git"

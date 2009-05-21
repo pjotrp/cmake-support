@@ -2,9 +2,10 @@
 
 echo "HELLO from remote "$*
 project=$1
-git=$2
-branch=$3
+binpath=$2
+git=$3
 test_install=$4
+branch=$4
 
 test_me() {
   ./configure $1
@@ -23,7 +24,7 @@ test_me() {
   fi
 }
 
-PATH=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/bin:$PATH
+PATH=$binpath:$PATH
 set
 mkdir -p autotest
 cd autotest
@@ -35,8 +36,10 @@ else
   git clone $git $project
   cd $project
 fi
-git checkout -b $branch
-git pull origin $branch
+if [ ! -z $branch ] ; then
+  git checkout -b $branch
+  git pull origin $branch
+fi
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
