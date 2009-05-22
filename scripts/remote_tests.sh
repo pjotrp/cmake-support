@@ -45,6 +45,7 @@ fi
 ls -l
 git checkout -b $branch
 git pull origin $branch
+git submodule update --init
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
