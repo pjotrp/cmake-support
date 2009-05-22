@@ -48,9 +48,10 @@ config.each do | item |
 	cmd = "scp -P #{item[:port]} #{item[:script]} #{remote}:"
 	msgcmd 'Copy',cmd
   project = item[:project]
-  path = item[:path]
+	path = '/usr/bin'
+  path = item[:path] if item[:path]
   git = item[:git]
-	install=''
+	install='master'
 	install='install' if item[:install]
   branch = item[:branch]
 	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{project} \"#{path}\" #{git} #{install} #{branch}\""

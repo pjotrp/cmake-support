@@ -7,6 +7,11 @@ git=$3
 test_install=$4
 branch=$4
 
+echo "binpath=$binpath"
+echo "git=$git"
+echo "test=$test_install"
+echo "branch=$branch"
+
 test_me() {
   ./configure $1
   make
@@ -30,13 +35,15 @@ mkdir -p autotest
 cd autotest
 git --version
 if [ -e $project/.git/config ]; then
+  echo "$project git repo exists, changing dir"
   cd $project
 else
-  rm -rf $project
+  rm -rvf $project
   git clone $git $project
   cd $project
 fi
 if [ ! -z $branch ] ; then
+  ls -l
   git checkout -b $branch
   git pull origin $branch
 fi
