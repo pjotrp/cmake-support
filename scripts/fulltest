@@ -6,6 +6,10 @@
 #  The testing configuration is picked up from a YAML file passed in
 #  as the first argument.
 #
+#  For example:
+#
+#    ./scripts/fulltest ./etc/ascilib_vm_test.yaml AScilibRcOnDebian1
+#
 #  Pjotr Prins (c) 2009
 #
 
