@@ -42,11 +42,9 @@ else
   git clone $git $project
   cd $project
 fi
-if [ ! -z $branch ] ; then
-  ls -l
-  git checkout -b $branch
-  git pull origin $branch
-fi
+ls -l
+git checkout -b $branch
+git pull origin $branch
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
