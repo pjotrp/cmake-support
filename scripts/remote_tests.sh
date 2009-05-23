@@ -5,7 +5,7 @@ project=$1
 binpath=$2
 git=$3
 test_install=$4
-branch=$4
+branch=$5
 
 echo "binpath=$binpath"
 echo "git=$git"
@@ -18,7 +18,7 @@ test_me() {
   make test >> test.out
   make test
   cat Testing/Temporary/LastTest.log >> testlog.out
-  if [ ! -z $test_install ]; then
+  if [ $test_install != '0' ]; then
     make install
     ./scripts/cleanup.sh
     ./configure $1

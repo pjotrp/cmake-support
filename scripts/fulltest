@@ -51,10 +51,11 @@ config.each do | item |
 	path = '/usr/bin'
   path = item[:path] if item[:path]
   git = item[:git]
-	install='master'
+	install='0'
 	install='install' if item[:install]
-  branch = item[:branch]
-	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{project} \"#{path}\" #{git} #{install} #{branch}\""
+  branch = 'master'
+  branch = item[:branch] if item[:branch]
+	cmd = "ssh -p #{item[:port]} #{remote} /bin/bash \"./#{File.basename(item[:script])} #{project} #{path} #{git} #{install} #{branch}\""
 	msgcmd 'Run',cmd
 	cmd = "scp -P #{item[:port]} #{remote}:autotest/#{item[:project]}/test.out #{item[:name]}.result"
 	msgcmd 'Fetch',cmd
