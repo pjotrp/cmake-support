@@ -5,7 +5,12 @@ project=$1
 binpath=$2
 git=$3
 test_install=$4
-branch=$4
+branch=$5
+
+echo "binpath=$binpath"
+echo "git=$git"
+echo "test=$test_install"
+echo "branch=$branch"
 
 test_me() {
   ./configure $1
@@ -13,7 +18,7 @@ test_me() {
   make test >> test.out
   make test
   cat Testing/Temporary/LastTest.log >> testlog.out
-  if [ ! -z $test_install ]; then
+  if [ $test_install != '0' ]; then
     make install
     ./scripts/cleanup.sh
     ./configure $1
@@ -30,16 +35,17 @@ mkdir -p autotest
 cd autotest
 git --version
 if [ -e $project/.git/config ]; then
+  echo "$project git repo exists, changing dir"
   cd $project
 else
-  rm -rf $project
+  rm -rvf $project
   git clone $git $project
   cd $project
 fi
-if [ ! -z $branch ] ; then
-  git checkout -b $branch
-  git pull origin $branch
-fi
+ls -l
+git checkout -b $branch
+git pull origin $branch
+git submodule update --init
 cat PROJECTNAME VERSION > test.out
 cat /proc/version >> test.out
 cmake --version >> test.out
