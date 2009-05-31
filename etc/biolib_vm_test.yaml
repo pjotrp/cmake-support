@@ -15,5 +15,6 @@
   :branch: release_candidate
   :port: 22
   :host: localhost
+  :path: "~/.nix-profile/bin/"
   :script: scripts/remote_tests.sh
   :git: "http://github.com/pjotrp/biolib.git"
