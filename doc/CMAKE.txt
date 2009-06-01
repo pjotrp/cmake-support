@@ -1,0 +1,34 @@
+= CMAKE =
+
+CMake is the backbone in BioLib. For a full description read the
+section in ./doc/DEVELOPMENT.txt first (and perhaps the Biolib website).
+
+Here we list special CMake parameters used with BioLib/ASciLib. It is
+incomplete - see the descriptions in ./tools/cmake-support/modules
+for more.
+
+== Locating .h, .hpp and .i files ==
+
+To find header files (and SWIG definition files) an INCLUDEPATH is
+set by CMake. Adding paths is done with, for example:
+
+  INCLUDE_DIRECTORIES(${MAP_ROOT}/contrib/libsequence-1.6.6)
+
+For SWIG modules a single path can be added to the (to be mapped)
+C/C++ library when include files are not in a standard named
+location (like src or include) with USE_INCLUDEPATH:
+
+  SET (USE_INCLUDEPATH io_lib)
+
+This path is always relative to ./src/clib/module-version/.
+
+== USE_C_LINKAGE ==
+
+When a C library has been compiled without C++ linkage (aka name
+mangling) SWIG modules will fail to find the C functions. Adding:
+
+  SET(USE_C_LINKAGE TRUE)
+
+in a SWIG module will drop name mangling.
+
+
