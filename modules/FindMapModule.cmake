@@ -3,14 +3,14 @@
 #
 # It uses
 #
-#   M_NAME
-#   M_VERSION
-#   USE_INCLUDE_PATH
+#   M_NAME               - module name
+#   M_VERSION            - module version (optional)
+#   USE_INCLUDEPATH      - override default location (relative path)
 #
 # to return
 #
-#   MODULE_SOURCE_PATH
-#   MODULE_LIBRARY
+#   MODULE_SOURCE_PATH   - the path to the C library sources
+#   MODULE_LIBRARY       - the shared lib to link
 
 MESSAGE(STATUS,"FindMapModule.cmake")
 SET (MODULE_NAME ${M_NAME})
@@ -35,6 +35,9 @@ IF(CYGWIN)
   SET(_LINKLIB lib${_LIBNAME}.dll.a)
   SET(MODULE_LIBRARY_BINPATH ${MODULE_SOURCE_PATH}/build)
 ENDIF(CYGWIN)
+IF(APPLE)
+  SET(_LINKLIB lib${_LIBNAME}.dylib)
+ENDIF(APPLE)
 MESSAGE("Looking for ${_LINKLIB}")
 
 IF(BUILD_LIBS)
