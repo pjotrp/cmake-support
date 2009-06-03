@@ -4,8 +4,15 @@
 # and libraries are. It also determines what the name of the library is. This
 # code sets the following variables:
 #
-#  R_INCLUDE_PATH = path to where R.h is found
-#  R_EXECUTABLE   = full path to the R binary
+#   R_INCLUDE_PATH = path to where R.h is found
+#   R_EXECUTABLE   = full path to the R binary
+#
+# R can be queried with:
+#
+#   R CMD config --cppflags
+#   R CMD config --ldflags
+#
+# Also pkg-config can be used with --cflags libR etc.
 
 FIND_PROGRAM(R_EXECUTABLE R)
 
