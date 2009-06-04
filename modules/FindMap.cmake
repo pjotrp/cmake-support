@@ -1,5 +1,8 @@
-# Global MAPPING settings
+# Global MAPPING settings - finds the root folder, the Cmake modules,
+# and some other global information.
 #
+
+MESSAGE(STATUS,"FindMap.cmake")
 
 # ---- Get MAP source root directory
 # get_filename_component(MAP_ROOT ${CMAKE_MODULE_PATH} PATH)

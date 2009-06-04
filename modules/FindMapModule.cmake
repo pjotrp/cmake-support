@@ -1,5 +1,5 @@
 # This CMake script tries to locate the clib module and shared library
-# in the source tree and 
+# in the source tree and is called from a FindMapLanguage.cmake.
 #
 # It uses
 #
