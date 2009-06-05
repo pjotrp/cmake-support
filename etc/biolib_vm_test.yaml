@@ -18,3 +18,12 @@
   :path: "~/.nix-profile/bin/"
   :script: scripts/remote_tests.sh
   :git: "http://github.com/pjotrp/biolib.git"
+-
+  :project: biolib
+  :name: BioLibDevOnDebian1
+  :branch: rqtl
+  :port: 22
+  :host: localhost
+  :path: "~/.nix-profile/bin/"
+  :script: scripts/remote_tests.sh
+  :git: "http://github.com/pjotrp/biolib.git"

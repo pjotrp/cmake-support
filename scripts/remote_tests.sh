@@ -54,10 +54,14 @@ gcc --version >> test.out
 perl -v 
 git log -1 >> test.out
 echo $project $git >> test.out
+echo "Test Ruby editions"
 ruby -v >> test.out
 test_me "--with-ruby"
+test_me "--with-ruby --with-rqtl"
+echo "Test Perl editions"
 perl -v >> test.out
 test_me
+echo "Test Python editions"
 python -V >> test.out
 test_me "--with-python"
 cat test.out
