@@ -31,5 +31,7 @@ SET (USE_SWIG_FLAGS "-prefix;'${MAP_projectname}::';${USE_SWIG_FLAGS}")
 
 FIND_PACKAGE(MapSWIG REQUIRED)
 
+SET (RUBY_DOCTEST ${MAP_ROOT}/tools/rubydoctest/bin/rubydoctest)
+
 MESSAGE( STATUS "RUBY_LIB_PATH=${RUBY_LIB_PATH}")
 
