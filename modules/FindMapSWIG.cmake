@@ -42,7 +42,6 @@ message(STATUS "SWIG M_LIBS=${M_LIBS}")
 
 SWIG_ADD_MODULE(${M_MODULE} ${USE_LANGUAGE} ${INTERFACE} ${SOURCES} )
 SWIG_LINK_LIBRARIES(${M_MODULE} ${M_LIBS})
-)
 
 # this is used when searching for include files e.g. using the FIND_PATH() command.
 MESSAGE( STATUS "CMAKE_INCLUDE_PATH=" ${CMAKE_INCLUDE_PATH} )
