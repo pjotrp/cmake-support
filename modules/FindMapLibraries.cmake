@@ -1,4 +1,4 @@
-# CMake script to locate external libraries 
+# CMake script to locate external libraries
 #
 # Using
 #
@@ -15,7 +15,6 @@ IF(USE_RLIB)
 ENDIF(USE_RLIB)
 
 IF(USE_ZLIB)
-  SET (USE_CORE TRUE)
   FIND_PACKAGE(ZLIB)
 ENDIF(USE_ZLIB)
 
@@ -23,8 +22,9 @@ IF(USE_CORE)
   SET(_LIBCORENAME ${MAP_projectname}_core)
   SET(_LIBCOREPATH ${MAP_CLIBS_PATH}/${_LIBCORENAME})
   INCLUDE_DIRECTORIES(${_LIBCOREPATH}/include)
+  SET(_LIBNAME ${_LIBCORENAME}-${MAP_VERSION})
   if(NOT BUILD_LIBS)
-    SET(_LIBNAME ${_LIBCORENAME}-${MAP_VERSION})
+    # building from higher level and need to name/find core libs explicitly
     SET(_LINKLIB lib${_LIBNAME}.so)
     IF(CYGWIN)
       SET(_LINKLIB lib${_LIBNAME}.dll.a)
@@ -38,13 +38,18 @@ IF(USE_CORE)
       FIND_LIBRARY(CORE_LIBRARY NAMES ${_LINKLIB} PATHS ${_LIBCOREPATH}/build ${_LIBCOREPATH}/src)
     ENDIF()
     message("Found ${CORE_LIBRARY}")
-  endif(NOT BUILD_LIBS)
+  else()
+    IF(BLD_BIOLIB_CORE)  # set explicitly
+      SET(CORE_LIBRARY ${_LIBNAME})
+    ENDIF()
+  endif()
   # UNSET(_LIBNAME)
   SET(_LIBNAME 'unknown')
+  message("CORE_LIBRARY=${CORE_LIBRARY}")
 ENDIF(USE_CORE)
 
 IF(USE_RLIB)
-  # handle the QUIETLY and REQUIRED arguments and set RLIBS_FOUND to TRUE if 
+  # handle the QUIETLY and REQUIRED arguments and set RLIBS_FOUND to TRUE if
   # all listed variables are TRUE
   INCLUDE(FindPackageHandleStandardArgs)
   FIND_PACKAGE_HANDLE_STANDARD_ARGS(RLibs DEFAULT_MSG MAP_VERSION)
@@ -71,8 +76,11 @@ IF(USE_GSL)
       FIND_LIBRARY(GSL_LIBRARY NAMES ${_LINKLIB} PATHS ${_LIBGSLPATH}/build ${_LIBGSLPATH}/src)
     ENDIF()
     message("Found ${GSL_LIBRARY}")
-  endif(NOT BUILD_LIBS)
+  else()
+    SET(GSL_LIBRARY ${_LIBGSLNAME})
+  endif()
   # UNSET(_LIBNAME)
-  SET(_LIBNAME 'unknown')
+  SET(_LIBGSLNAME 'unknown')
+  message("GSL_LIBRARY=${GSL_LIBRARY}")
 ENDIF(USE_GSL)
 
