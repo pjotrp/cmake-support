@@ -7,6 +7,8 @@
 #   USE_CORE
 #   USE_GSL
 
+ASSERT_FOUNDMAP()
+
 # ---- Using libraries
 
 IF(USE_RLIB)

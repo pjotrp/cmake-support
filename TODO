@@ -1,2 +1,3 @@
 - Fix compile time switches for Perl with C_LINKAGE
 - Python Cmake handler prefers linking to /usr/lib/local
+- Create macro for locating standard biolib libraries

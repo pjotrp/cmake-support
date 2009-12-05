@@ -4,8 +4,11 @@
 # and libraries are. It also determines what the name of the library is. This
 # code sets the following variables:
 #
-#   R_INCLUDE_PATH = path to where R.h is found
-#   R_EXECUTABLE   = full path to the R binary
+#   R_INCLUDE_PATH   = path to where R.h is found
+#   R_EXECUTABLE     = full path to the R binary
+#   R_LIBRARY        = path to shared R library
+#   RBLAS_LIBRARY
+#   BIOLIB_R_LIBRARY
 #
 # R can be queried with:
 #
@@ -13,6 +16,8 @@
 #   R CMD config --ldflags
 #
 # Also pkg-config can be used with --cflags libR etc.
+
+ASSERT_FOUNDMAP()
 
 FIND_PROGRAM(R_EXECUTABLE R)
 
