@@ -1,6 +1,10 @@
 
 message(STATUS "RubyMacros.cmake")
 
+MACRO(BUILD_RUBY_BINDINGS)
+  MESSAGE("Building RUBY bindings")
+ENDMACRO(BUILD_RUBY_BINDINGS)
+
 # Set up a test
 MACRO(TEST_RUBY_BINDINGS)
 
