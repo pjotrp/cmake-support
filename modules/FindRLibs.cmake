@@ -35,7 +35,7 @@ IF(APPLE)
   )
 ELSE()
   FIND_PROGRAM(R_EXECUTABLE R
-    PATHS 
+    PATHS      # maybe use HINTS
       /usr/bin
       /usr/local/bin
   )
@@ -93,10 +93,14 @@ FIND_PATH(R_INCLUDE_PATH R.h
 )
 INCLUDE_DIRECTORIES(${R_INCLUDE_PATH})
 
-# Locate R_BLAS (is it required?)
 FIND_LIBRARY(R_BLAS_LIBRARY
-  NAMES Rlbas.dll.a R_BLAS.dll R_BLAS.dylib libR_BLAS.so libblas.so
-  PATHS ${R_LIBRARY_PATH} ${R_BINPATH}
+  NAMES Rlbas.dll.a R_BLAS.dll libRblas.dylib libR_BLAS.so libblas.so
+  PATHS 
+      ${R_LIBRARY_PATH} 
+      ${R_EXE_LIB_PATHS}
+      ${R_PATH}
+      ${R_BINPATH}
+      /Library/Frameworks/R.framework/Resources/lib
   )
 
 INCLUDE(FindPackageHandleStandardArgs)
@@ -129,9 +133,11 @@ if(NOT BIOLIB_R_LIBRARY)
       SET(_LINKLIB lib${_LIBNAME}.dylib)
     ENDIF(APPLE)
     message("Looking for ${_LINKLIB} in ${_RLIBPATH}")
-    FIND_LIBRARY(R_LIBRARY NAMES ${_LINKLIB} HINTS ${_RLIBPATH}/build ${_RLIBPATH}/src)
+    FIND_LIBRARY(R_LIBRARY NAMES ${_LINKLIB} 
+      HINTS ${_RLIBPATH}/build ${_RLIBPATH}/src)
     IF(NOT BIOLIB_R_LIBRARY)
-      FIND_LIBRARY(BIOLIB_R_LIBRARY NAMES ${_LINKLIB} PATHS ${_RLIBPATH}/build ${_RLIBPATH}/src)
+      FIND_LIBRARY(BIOLIB_R_LIBRARY NAMES ${_LINKLIB} 
+        PATHS ${_RLIBPATH}/build ${_RLIBPATH}/src)
     ENDIF()
     message("Found ${BIOLIB_R_LIBRARY}")
   else()
