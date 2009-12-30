@@ -55,10 +55,10 @@ IF(R_EXECUTABLE)
   # Fetch the library paths
   EXECUTE_PROCESS(COMMAND ${R_EXECUTABLE} CMD config --ldflags OUTPUT_VARIABLE _LIBS)
   message(STATUS "LIBS=${_LIBS}")
-  if (not APPLE)
-    STRING(REGEX REPLACE "-L([^ ]+)" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
-  else()
+  if (APPLE)
     STRING(REGEX REPLACE "-F([^ ]+)" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
+  else()
+    STRING(REGEX REPLACE "-L([^ ]+)" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
   endif()
   separate_arguments(R_EXE_LIB_PATHS)
   message(STATUS "R_EXE_LIB_PATHS=${R_EXE_LIB_PATHS}")
@@ -96,7 +96,7 @@ INCLUDE_DIRECTORIES(${R_INCLUDE_PATH})
 
 # Locate R_BLAS (is it required?)
 FIND_LIBRARY(R_BLAS_LIBRARY
-  NAMES Rlbas.dll.a R_BLAS.dll R_BLAS.dylib libR_BLAS.so
+  NAMES Rlbas.dll.a R_BLAS.dll R_BLAS.dylib libR_BLAS.so libblas.so
   PATHS ${R_LIBRARY_PATH} ${R_BINPATH}
   )
 
