@@ -12,8 +12,12 @@
 #
 # They can be hard coded by uncommenting, for example:
 #
-# SET(R_INCLUDE_PATH "c:/Progra~1/R/R-2.9.1/include")
-# SET(R_EXECUTABLE "c:/Progra~1/R/R-2.9.1/bin/R.EXE")
+IF(WIN32) 
+	SET(R_INCLUDE_PATH "c:/Progra~1/R/R-2.9.1/include")
+	SET(R_EXECUTABLE "c:/Progra~1/R/R-2.9.1/bin/R.exe")
+	SET(R_LIBRARY "c:/Progra~1/R/R-2.9.1/bin/R.dll")
+	SET(R_BLAS_LIBRARY "c:/Progra~1/R/R-2.9.1/bin/Rblas.dll")
+ENDIF()
 #
 # R can be queried with:
 #
@@ -27,19 +31,22 @@ MESSAGE("FindRLibs.cmake")
 ASSERT_FOUNDMAP()
 
 IF(APPLE)
+  message("OSX environment")
   FIND_PROGRAM(R_EXECUTABLE R
+    NO_DEFAULT_PATH
     PATHS 
       /Library/Frameworks/R.framework/Resources/bin
       /usr/bin
       /usr/local/bin
   )
-ELSE()
-  FIND_PROGRAM(R_EXECUTABLE R
-    PATHS      # maybe use HINTS
-      /usr/bin
-      /usr/local/bin
-  )
 ENDIF()
+
+# If the R path is in the cache the following will skip...
+FIND_PROGRAM(R_EXECUTABLE R
+  PATHS      # maybe use HINTS
+    /usr/bin
+    /usr/local/bin
+)
 
 IF(WIN32 AND NOT R_EXECUTABLE)
   FIND_PROGRAM(R_EXECUTABLE R
@@ -48,14 +55,20 @@ IF(WIN32 AND NOT R_EXECUTABLE)
 ENDIF()
 
 IF(R_EXECUTABLE)
+  message("R_EXECUTABLE=${R_EXECUTABLE}")
   GET_FILENAME_COMPONENT(R_BINPATH ${R_EXECUTABLE} PATH)  
   GET_FILENAME_COMPONENT(R_PATH ${R_BINPATH} PATH)
   # Get information from R itself
   # Fetch the library paths
-  EXECUTE_PROCESS(COMMAND ${R_EXECUTABLE} CMD config --ldflags OUTPUT_VARIABLE _LIBS)
+  IF(NOT WIN32)
+    EXECUTE_PROCESS(COMMAND ${R_EXECUTABLE} CMD config --ldflags OUTPUT_VARIABLE _LIBS)
+  ELSE()
+    SET(_LIBS "-LC:/PROGRA~1/R/R-29~1.1/bin -lR")
+  ENDIF()
   message("LIBS=${_LIBS}")
   if (APPLE)
-    STRING(REGEX REPLACE "-F([^ ]+)" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
+    # returns -F/Library/Frameworks/R.framework/.. -framework R
+    STRING(REGEX REPLACE "-F([^ ]+) -framework R" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
   else()
     STRING(REGEX REPLACE "-L([^ ]+)" "\\1" R_EXE_LIB_PATHS "${_LIBS}")
   endif()
@@ -63,7 +76,11 @@ IF(R_EXECUTABLE)
   message("R_EXE_LIB_PATHS=${R_EXE_LIB_PATHS}")
 
   # Fetch the include paths
-  EXECUTE_PROCESS(COMMAND ${R_EXECUTABLE} CMD config --cppflags OUTPUT_VARIABLE _INCLUDES)
+  IF(NOT WIN32)  
+    EXECUTE_PROCESS(COMMAND ${R_EXECUTABLE} CMD config --cppflags OUTPUT_VARIABLE _INCLUDES)
+  ELSE()
+    SET(_INCLUDES "-IC:/PROGRA~1/R/R-29~1.1/include")
+  ENDIF()
   message("INCLUDES=${_INCLUDES}")
   STRING(REGEX REPLACE "-I([^ ]+)" "\\1" R_EXE_INCLUDE_PATHS "${_INCLUDES}")
   separate_arguments(R_EXE_INCLUDE_PATHS)
