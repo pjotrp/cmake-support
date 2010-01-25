@@ -20,6 +20,18 @@ MACRO(BUILD_CLIB)
   SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${_directory})
   SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${_directory})
   SET (_directory undefined)
+
+  # ---- The following is required for OSX
+  if(USE_ZLIB)
+    TARGET_LINK_LIBRARIES(${LIBNAME} ${ZLIB_NAME})
+  endif()
+  if(USE_RLIB)
+    TARGET_LINK_LIBRARIES(${LIBNAME} ${R_LIBRARY})
+  endif()
+  if(USE_CORE)
+    TARGET_LINK_LIBRARIES(${LIBNAME} ${CORE_LIBRARY})
+  endif()
+
 ENDMACRO(BUILD_CLIB)
 
 # Installation location for the C libraries
