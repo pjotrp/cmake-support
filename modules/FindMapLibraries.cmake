@@ -9,6 +9,8 @@
 
 ASSERT_FOUNDMAP()
 
+MESSAGE(STATUS,"FindMapLibraries.cmake")
+
 # ---- Using libraries
 
 IF(USE_RLIB)
