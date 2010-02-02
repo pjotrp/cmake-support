@@ -2,8 +2,8 @@ FIND_PACKAGE(Doxygen)
 
 IF (DOXYGEN_FOUND)
 
-SET(DOXYGEN_INPUT ./doc/doxygen/Doxyfile)
-SET(DOXYGEN_OUTPUT ./doc/apidoc/html)
+SET(DOXYGEN_INPUT ${MAP_ROOT}/doc/doxygen/Doxyfile)
+SET(DOXYGEN_OUTPUT ${MAP_ROOT}/build/doc/html/apidoc/index.html)
 
 ADD_CUSTOM_COMMAND(
   OUTPUT ${DOXYGEN_OUTPUT}
@@ -22,6 +22,6 @@ ADD_CUSTOM_TARGET(apidoc_forced
   COMMAND ${CMAKE_COMMAND} -E echo "Done."
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-ENDIF (DOXYGEN_FOUND)
+ENDIF()
 
 
