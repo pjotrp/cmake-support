@@ -12,6 +12,11 @@ MACRO(POST_BUILD_PERL_BINDINGS)
     POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy ${M_NAME}.pm ${MAP_projectname}/${M_NAME}.pm
   )
+
+  # Make sure it gets cleaned up
+  SET_DIRECTORY_PROPERTIES(PROPERTIES  
+    ADDITIONAL_MAKE_CLEAN_FILES "${M_NAME}.pm;${MAP_projectname}/${M_NAME}.pm;build/${M_NAME}.xml;output/perl/${M_NAME}.pod;build/${M_NAME}.html;pod2htmd.tmp;pod2htmi.tmp") 
+
   IF(APPLE)
     ADD_CUSTOM_COMMAND(
       TARGET ${M_MODULE}
