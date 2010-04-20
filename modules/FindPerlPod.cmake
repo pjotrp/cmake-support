@@ -6,12 +6,20 @@
 #
 
 message(STATUS "FindPerlPod.cmake")
-message("SWIG=" ${SWIG_EXECUTABLE})
+message(STATUS "SWIG=" ${SWIG_EXECUTABLE})
+message(STATUS "USE_SWIG_INCLUDEPATH=" ${USE_SWIG_INCLUDEPATH})
+message(STATUS "CMAKE_SWIG_FLAGS=" ${CMAKE_SWIG_FLAGS})
+
+GET_DIRECTORY_PROPERTY(cmake_include_directories INCLUDE_DIRECTORIES)
+SET(swig_include_dirs)
+FOREACH(it ${cmake_include_directories})
+  SET(swig_include_dirs ${swig_include_dirs} "-I${it}")
+ENDFOREACH(it)
 
 ADD_CUSTOM_TARGET(perldoc
   COMMENT "Generating Perl documentation for ${M_NAME}"
   COMMAND ${CMAKE_COMMAND} -E make_directory build
-  COMMAND ${SWIG_EXECUTABLE} -I${MAP_ROOT}/src/clibs/affyio/src/ -o build/${M_NAME}.xml -xml ${INTERFACE}
+  COMMAND ${SWIG_EXECUTABLE} ${swig_include_dirs} -o build/${M_NAME}.xml -xml ${INTERFACE}
   COMMAND ${MAP_ROOT}/tools/swig2doc/bin/swig2doc build/${M_NAME}.xml ${MAP_ROOT}/build/doc/xml/apidoc/biolib__affyio_8h.xml  ${MAP_ROOT}/build/doc/xml/apidoc/biolib__affyio_8c.xml
   COMMAND pod2html output/perl/${M_NAME}.pod > build/${M_NAME}.html
   # Copy the files
