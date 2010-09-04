@@ -3,6 +3,7 @@
 #
 
 MESSAGE(STATUS,"FindMap.cmake")
+INCLUDE(CMakeSupport)
 
 # ---- Get MAP source root directory
 # get_filename_component(MAP_ROOT ${CMAKE_MODULE_PATH} PATH)
