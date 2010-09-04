@@ -6,13 +6,17 @@
 
 When you get an error:
 
-   Error: Unable to find 'ruby.swg'
+   Error: Unable to find 'ruby.swg' 
 
-it probably means swig is wrongly installed. Check what SWIG thinks the path with
+(or python.swg, or perl.swg) it probably means swig is wrongly
+installed. Check what SWIG thinks the path with
 
   swig -swiglib
 
-and see if ruby.swg is in there.
+and see if ruby.swg is in there. If it is not, you need to install
+SWIG with Ruby support. On OSX this is common:
+
+  port install swig ruby perl python
 
 == CMake errors ==
 
