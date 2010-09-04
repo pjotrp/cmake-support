@@ -1,7 +1,8 @@
 = CMAKE =
 
-CMake is the backbone in BioLib. For a full description read the
-section in ./doc/DEVELOPMENT.txt first (and perhaps the Biolib website).
+CMake is the backbone of the BioLib build system. For a full
+description read the section in ./doc/DEVELOPMENT.txt first (and
+perhaps the Biolib website).
 
 Here we list special CMake parameters used with BioLib/ASciLib. It is
 incomplete - see the descriptions in ./tools/cmake-support/modules

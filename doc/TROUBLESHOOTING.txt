@@ -1,6 +1,51 @@
 = TROUBLE SHOOTING =
 
-== Perl Dynaloader problems with Nix ==
+== SWIG Errors ==
+
+=== SWIG unable to find library file ===
+
+When you get an error:
+
+   Error: Unable to find 'ruby.swg'
+
+it probably means swig is wrongly installed. Check what SWIG thinks the path with
+
+  swig -swiglib
+
+and see if ruby.swg is in there.
+
+== CMake errors ==
+
+=== CMake target path does not exist ===
+
+When a path does not exist you may get something like:
+
+  CMake Error at /Users/pjotrp/izip/git/opensource/biolib/tools/cmake-support/modules/RubyMacros.cmake:25 (INSTALL):
+    install TARGETS given unknown argument
+    "/System/Library/Frameworks/ruby.framework/biolib".
+  Call Stack (most recent call first):
+    CMakeLists.txt:22 (INSTALL_RUBY_BINDINGS)
+
+which should have pointed to something like:
+
+  /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/vendor_ruby
+
+with Ruby you can print the path with
+
+  ruby -e "p $:"
+
+=== Shared libraries not built ===
+
+This happens when you have not built the clibs:
+
+  CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+  Please set them or make sure they are set and tested correctly in the CMake files:
+  MODULE_LIBRARY (ADVANCED)
+      linked by target "samtools" in directory /Users/pjotrp/izip/git/opensource/biolib/src/mappings/swig/ruby/samtools
+
+Make sure to build the BioLib shared libraries first
+
+== Perl Dynaloader problems with Nix(os) ==
 
 When using a Nix Perl in a standard Debian build you get something like:
 
